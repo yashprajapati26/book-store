@@ -15,26 +15,30 @@ function BookList() {
     setToaster({ ...toaster, open: false });
   };
   const deleteBook = (bookId) => {
-    console.log(bookId);
-    setBooks(Books.filter((book) => book.id !== bookId));
     setToaster({ ...toaster, open: true, message: "Book Deleted Sucessfully" });
+    console.log(bookId, {
+      ...toaster,
+      open: true,
+      message: "Book Deleted Sucessfully",
+    });
+    setBooks(Books.filter((book) => book.id !== bookId));
   };
 
-  if (Books.length > 0) {
-    return (
-      <div>
-        <h1 style={{ marginLeft: 55 }}>BookList</h1>
-        <div style={{ margin: 55 }}>
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Book Title</th>
-                <th>Auther</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+  return (
+    <div>
+      <h1 style={{ marginLeft: 55 }}>BookList</h1>
+      <div style={{ margin: 55 }}>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Book Title</th>
+              <th>Auther</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          {Books.length > 0 ? (
             <tbody>
               {Books.map((book, index) => (
                 <tr key={index}>
@@ -63,35 +67,7 @@ function BookList() {
                 </tr>
               ))}
             </tbody>
-          </table>
-        </div>
-
-        {/* toaster */}
-        <Snackbar
-          open={toaster.open}
-          autoHideDuration={2000}
-          anchorOrigin={toaster}
-          onClose={handleClose}
-        >
-          <Alert severity="success">{toaster.message}</Alert>
-        </Snackbar>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h1 style={{ marginLeft: 55 }}>BookList</h1>
-        <div style={{ margin: 55 }}>
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Book Title</th>
-                <th>Auther</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+          ) : (
             <tbody>
               <tr>
                 <td colSpan="5" style={{ textAlign: "center" }}>
@@ -99,11 +75,21 @@ function BookList() {
                 </td>
               </tr>
             </tbody>
-          </table>
-        </div>
+          )}
+        </table>
       </div>
-    );
-  }
+
+      {/* toaster */}
+      <Snackbar
+        open={toaster.open}
+        autoHideDuration={2000}
+        anchorOrigin={toaster}
+        onClose={handleClose}
+      >
+        <Alert severity="success">{toaster.message}</Alert>
+      </Snackbar>
+    </div>
+  );
 }
 
 export default BookList;

@@ -8,6 +8,7 @@ function BookList() {
   // for toaster
   const { Books, setBooks, toaster, setToaster } = useContext(AppContext);
   const [searchBooks, setsearchBooks] = useState(Books);
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -16,20 +17,32 @@ function BookList() {
   };
   const deleteBook = (bookId) => {
     setToaster({ ...toaster, open: true, message: "Book Deleted Sucessfully" });
-    console.log(bookId, {
-      ...toaster,
-      open: true,
-      message: "Book Deleted Sucessfully",
-    });
     setBooks(Books.filter((book) => book.id !== bookId));
   };
 
   const searchHAndler = (event) => {
-    console.log(event.target.value);
     let searchKey = event.target.value;
     setsearchBooks(Books.filter((book) => book.title.includes(searchKey)));
-    console.log(searchBooks);
   };
+
+  const sortHandler = (key) => {
+    console.log(key);
+    const newBooks = [...searchBooks];
+    if (key === "id") {
+      newBooks.sort((a, b) => b.id - a.id);
+      setsearchBooks(newBooks);
+    } else if (key === "title") {
+      newBooks.sort((a, b) => a.title.localeCompare(b.title));
+      setsearchBooks(newBooks);
+    } else if (key === "author") {
+      newBooks.sort((a, b) => a.title.localeCompare(b.title));
+      setsearchBooks(newBooks);
+    } else if (key === "price") {
+      newBooks.sort((a, b) => a.title.localeCompare(b.title));
+      setsearchBooks(newBooks);
+    }
+  };
+
   return (
     <div>
       <h1 style={{ marginLeft: 55 }}>BookList</h1>
@@ -44,10 +57,10 @@ function BookList() {
         <table>
           <thead>
             <tr>
-              <th>Id</th>
-              <th>Book Title</th>
-              <th>Auther</th>
-              <th>Price</th>
+              <th onClick={() => sortHandler("id")}>Id ^</th>
+              <th onClick={() => sortHandler("title")}>Book Title ^</th>
+              <th onClick={() => sortHandler("author")}>Auther ^</th>
+              <th onClick={() => sortHandler("price")}>Price ^</th>
               <th>Action</th>
             </tr>
           </thead>

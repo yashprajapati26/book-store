@@ -7,7 +7,7 @@ import { Alert } from "@mui/material";
 function BookList() {
   // for toaster
   const { Books, setBooks, toaster, setToaster } = useContext(AppContext);
-
+  const [searchBooks, setsearchBooks] = useState(Books);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -24,10 +24,23 @@ function BookList() {
     setBooks(Books.filter((book) => book.id !== bookId));
   };
 
+  const searchHAndler = (event) => {
+    console.log(event.target.value);
+    let searchKey = event.target.value;
+    setsearchBooks(Books.filter((book) => book.title.includes(searchKey)));
+    console.log(searchBooks);
+  };
   return (
     <div>
       <h1 style={{ marginLeft: 55 }}>BookList</h1>
       <div style={{ margin: 55 }}>
+        <label>Search :</label>
+        <input
+          type="text"
+          style={{ margin: "8px", padding: "8px" }}
+          placeholder="search here"
+          onChange={searchHAndler}
+        ></input>
         <table>
           <thead>
             <tr>
@@ -38,9 +51,9 @@ function BookList() {
               <th>Action</th>
             </tr>
           </thead>
-          {Books.length > 0 ? (
+          {searchBooks.length > 0 ? (
             <tbody>
-              {Books.map((book, index) => (
+              {searchBooks.map((book, index) => (
                 <tr key={index}>
                   <td>{book.id}</td>
                   <td>{book.title}</td>

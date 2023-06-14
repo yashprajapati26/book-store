@@ -15,11 +15,11 @@ function Header() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: {  sm: "block" } }}
           >
             Book Store
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box sx={{ display: { sm: "block" } }}>
             <Button sx={{ color: "#fff" }}>
               <Link to="/">Home</Link>
             </Button>

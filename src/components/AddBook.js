@@ -1,18 +1,26 @@
 import { Box, Button } from "@mui/material";
 import React, { useContext } from "react";
-import  { AppContext }  from "./context";
+import { AppContext } from "./context";
 import { useNavigate } from "react-router-dom";
 
 function AddBook() {
-  const {setBook , book ,setBooks} =useContext(AppContext)
+  const { setBook, book, setBooks, Books } = useContext(AppContext);
   const navigate = useNavigate();
-    
+
   const addBookHandler = () => {
-    console.log("addBookHandler");
-    setBooks((prev)=>[...prev, book]);
-    navigate("/book-list")
+    console.log(book);
+    if (book.price === undefined || book.price === "") {
+      alert("Book Price Required");
+    } else if (isNaN(book.price)) {
+      alert("Please Enter valid book price");
+    } else {
+      setBook({ ...book, id: Books.length + 1 });
+      console.log("addBookHandler");
+      setBooks((prev) => [...prev, book]);
+      navigate("/book-list");
+    }
   };
-  
+
   return (
     <div>
       <h1 style={{ marginLeft: 55 }}>Add Book</h1>
@@ -32,7 +40,7 @@ function AddBook() {
             type="text"
             name="title"
             placeholder="Title"
-            onChange={(e)=>setBook({...book, title : e.target.value})}
+            onChange={(e) => setBook({ ...book, title: e.target.value })}
           />
           <label style={{ margin: 3 }}>Author</label>
           <input
@@ -40,8 +48,7 @@ function AddBook() {
             type="text"
             name="author"
             placeholder="Author"
-            onChange={(e)=> setBook({...book, author : e.target.value})}
-
+            onChange={(e) => setBook({ ...book, author: e.target.value })}
           />
           <label style={{ margin: 3 }}>Price</label>
           <input
@@ -49,11 +56,9 @@ function AddBook() {
             type="text"
             name="price"
             placeholder="Price"
-            onChange={(e)=> setBook({...book, price : e.target.value})}
-
+            onChange={(e) => setBook({ ...book, price: e.target.value })}
           />
           <Button sx={{ m: 3 }} variant="contained" onClick={addBookHandler}>
-            {" "}
             ADD Book
           </Button>
         </Box>

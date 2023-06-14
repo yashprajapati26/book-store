@@ -3,12 +3,15 @@ import "../index.css";
 import { AppContext } from "./context";
 
 function BookList() {
-    const {Books} = useContext(AppContext)
-
+  const { Books, setBooks } = useContext(AppContext);
+  const deleteBook = (bookId) => {
+    console.log(bookId);
+    setBooks(Books.filter((book) => book.id !== bookId))
+  };
   return (
     <div>
       <h1 style={{ marginLeft: 55 }}>BookList</h1>
-      <div style={{margin:55}}>
+      <div style={{ margin: 55 }}>
         <table>
           <thead>
             <tr>
@@ -20,13 +23,13 @@ function BookList() {
             </tr>
           </thead>
           <tbody>
-            {Books.map((book ,index) => (
+            {Books.map((book, index) => (
               <tr key={index}>
-                <td>{index+1}</td>
+                <td>{book.id}</td>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
                 <td>{book.price}</td>
-                <td style={{ color: "red"}}>
+                <td style={{ color: "red" }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -34,7 +37,8 @@ function BookList() {
                     strokeWidth="1.5"
                     stroke="currentColor"
                     className="w-6 h-6"
-                    style={{height: '25'}}
+                    style={{ height: "25" }}
+                    onClick={() => deleteBook(book.id)}
                   >
                     <path
                       strokeLinecap="round"

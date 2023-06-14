@@ -31,8 +31,15 @@ const AppProvider = ({ children }) => {
     },
   ]);
 
+  const [toaster, setToaster] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message:"",
+  });
+
   return (
-    <AppContext.Provider value={{ setBook, book, setBooks, Books }}>
+    <AppContext.Provider value={{ setBook, book, setBooks, Books , setToaster, toaster}}>
       {children}
     </AppContext.Provider>
   );

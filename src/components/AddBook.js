@@ -4,7 +4,8 @@ import { AppContext } from "./context";
 import { useNavigate } from "react-router-dom";
 
 function AddBook() {
-  const { setBook, book, setBooks, Books } = useContext(AppContext);
+  const { setBook, book, setBooks, Books, toaster, setToaster } =
+    useContext(AppContext);
   const navigate = useNavigate();
   const addBookHandler = () => {
     console.log(book);
@@ -17,7 +18,7 @@ function AddBook() {
     } else {
       setBooks((prev) => [
         ...prev,
-        { ...book, id: Books[Books.length - 1].id + 1 },
+        { ...book, id: Books.length ? Books[Books.length - 1].id + 1 : 1 },
       ]);
       setBook({
         id: null,
@@ -25,6 +26,8 @@ function AddBook() {
         author: "",
         price: null,
       });
+      setToaster({ ...toaster, open: true, message: "Book Added Sucessfully" });
+
       navigate("/book-list");
     }
   };

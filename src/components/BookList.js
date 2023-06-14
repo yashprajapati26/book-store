@@ -35,10 +35,10 @@ function BookList() {
       newBooks.sort((a, b) => a.title.localeCompare(b.title));
       setsearchBooks(newBooks);
     } else if (key === "author") {
-      newBooks.sort((a, b) => a.title.localeCompare(b.title));
+      newBooks.sort((a, b) => a.author.localeCompare(b.author));
       setsearchBooks(newBooks);
     } else if (key === "price") {
-      newBooks.sort((a, b) => a.title.localeCompare(b.title));
+      newBooks.sort((a, b) =>  b.price - a.price);
       setsearchBooks(newBooks);
     }
   };

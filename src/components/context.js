@@ -5,8 +5,8 @@ export const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [book, setBook] = useState({
     id: null,
-    title: "",
-    author: "",
+    title: null,
+    author: null,
     price: null,
   });
 

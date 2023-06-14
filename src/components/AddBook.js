@@ -6,17 +6,30 @@ import { useNavigate } from "react-router-dom";
 function AddBook() {
   const { setBook, book, setBooks, Books } = useContext(AppContext);
   const navigate = useNavigate();
-
   const addBookHandler = () => {
     console.log(book);
-    if (book.price === undefined || book.price === "") {
+    if (
+      book.title === null ||
+      book.auther === null ||
+      book.price === null ||
+      book.id === null
+    ) {
+      alert("All Feild is Required");
+    } else if (book.price === null || book.price === "") {
       alert("Book Price Required");
     } else if (isNaN(book.price)) {
       alert("Please Enter valid book price");
     } else {
-      setBook({ ...book, id: Books.length + 1 });
-      console.log("addBookHandler");
-      setBooks((prev) => [...prev, book]);
+      setBooks((prev) => [
+        ...prev,
+        { ...book, id: Books[Books.length - 1].id + 1 },
+      ]);
+      setBook({
+        id: null,
+        title: "",
+        author: "",
+        price: null,
+      });
       navigate("/book-list");
     }
   };

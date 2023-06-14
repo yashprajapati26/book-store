@@ -10,7 +10,7 @@ function AddBook() {
     console.log(book);
     if (
       book.title === null ||
-      book.auther === null ||
+      book.author === null ||
       book.price === null ||
       book.id === null
     ) {

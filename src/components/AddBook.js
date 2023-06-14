@@ -8,13 +8,8 @@ function AddBook() {
   const navigate = useNavigate();
   const addBookHandler = () => {
     console.log(book);
-    if (
-      book.title === null ||
-      book.author === null ||
-      book.price === null ||
-      book.id === null
-    ) {
-      alert("All Feild is Required");
+    if (book.title === null || book.author === null || book.price === null) {
+      alert("All Feild is Required", book);
     } else if (book.price === null || book.price === "") {
       alert("Book Price Required");
     } else if (isNaN(book.price)) {

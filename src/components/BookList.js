@@ -24,7 +24,7 @@ function BookList() {
 
   const searchHAndler = (event) => {
     let searchKey = event.target.value;
-    setsearchBooks(Books.filter((book) => book.title.includes(searchKey)));
+    setsearchBooks(Books.filter((book) => book.title.toLowerCase().includes(searchKey.toLowerCase())));
   };
 
   const sortHandler = (key) => {

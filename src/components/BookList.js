@@ -8,6 +8,7 @@ function BookList() {
   // for toaster
   const { Books, setBooks, toaster, setToaster } = useContext(AppContext);
   const [searchBooks, setsearchBooks] = useState(Books);
+  const [direction, setDirection] = useState(1);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -15,6 +16,7 @@ function BookList() {
     }
     setToaster({ ...toaster, open: false });
   };
+
   const deleteBook = (bookId) => {
     setToaster({ ...toaster, open: true, message: "Book Deleted Sucessfully" });
     setBooks(Books.filter((book) => book.id !== bookId));
@@ -27,18 +29,19 @@ function BookList() {
 
   const sortHandler = (key) => {
     console.log(key);
+    setDirection(direction * -1);
     const newBooks = [...searchBooks];
     if (key === "id") {
-      newBooks.sort((a, b) => b.id - a.id);
+      newBooks.sort((a, b) => (b.id - a.id) * direction);
       setsearchBooks(newBooks);
     } else if (key === "title") {
-      newBooks.sort((a, b) => a.title.localeCompare(b.title));
+      newBooks.sort((a, b) => a.title.localeCompare(b.title) * direction);
       setsearchBooks(newBooks);
     } else if (key === "author") {
-      newBooks.sort((a, b) => a.author.localeCompare(b.author));
+      newBooks.sort((a, b) => a.author.localeCompare(b.author) * direction);
       setsearchBooks(newBooks);
     } else if (key === "price") {
-      newBooks.sort((a, b) =>  b.price - a.price);
+      newBooks.sort((a, b) => (b.price - a.price) * direction);
       setsearchBooks(newBooks);
     }
   };
@@ -57,10 +60,10 @@ function BookList() {
         <table>
           <thead>
             <tr>
-              <th onClick={() => sortHandler("id")}>Id ^</th>
-              <th onClick={() => sortHandler("title")}>Book Title ^</th>
-              <th onClick={() => sortHandler("author")}>Auther ^</th>
-              <th onClick={() => sortHandler("price")}>Price ^</th>
+              <th onClick={() => sortHandler("id")}>Id { direction === 1 ? <span>↑</span> : <span>↓</span>}</th>
+              <th onClick={() => sortHandler("title")}>Book Title { direction === 1 ? <span>↑</span> : <span>↓</span>}</th>
+              <th onClick={() => sortHandler("author")}>Auther { direction === 1 ? <span>↑</span> : <span>↓</span>}</th>
+              <th onClick={() => sortHandler("price")}>Price { direction === 1 ? <span>↑</span> : <span>↓</span>}</th>
               <th>Action</th>
             </tr>
           </thead>

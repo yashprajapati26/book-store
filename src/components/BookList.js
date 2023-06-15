@@ -7,7 +7,7 @@ import { Alert } from "@mui/material";
 function BookList() {
   // for toaster
   const { Books, setBooks, toaster, setToaster } = useContext(AppContext);
-  const [searchBooks, setsearchBooks] = useState(Books);
+  const [filterBooks, setfilterBooks] = useState(Books);
   const [direction, setDirection] = useState(1);
 
   const handleClose = (event, reason) => {
@@ -19,30 +19,30 @@ function BookList() {
 
   const deleteBook = (bookId) => {
     setToaster({ ...toaster, open: true, message: "Book Deleted Sucessfully" });
-    setBooks(Books.filter((book) => book.id !== bookId));
+    setfilterBooks(filterBooks.filter((book) => book.id !== bookId));
   };
 
   const searchHAndler = (event) => {
     let searchKey = event.target.value;
-    setsearchBooks(Books.filter((book) => book.title.toLowerCase().includes(searchKey.toLowerCase())));
+    setfilterBooks(Books.filter((book) => book.title.toLowerCase().includes(searchKey.toLowerCase())));
   };
 
   const sortHandler = (key) => {
     console.log(key);
     setDirection(direction * -1);
-    const newBooks = [...searchBooks];
+    const newBooks = [...filterBooks];
     if (key === "id") {
       newBooks.sort((a, b) => (b.id - a.id) * direction);
-      setsearchBooks(newBooks);
+      setfilterBooks(newBooks);
     } else if (key === "title") {
       newBooks.sort((a, b) => a.title.localeCompare(b.title) * direction);
-      setsearchBooks(newBooks);
+      setfilterBooks(newBooks);
     } else if (key === "author") {
       newBooks.sort((a, b) => a.author.localeCompare(b.author) * direction);
-      setsearchBooks(newBooks);
+      setfilterBooks(newBooks);
     } else if (key === "price") {
       newBooks.sort((a, b) => (b.price - a.price) * direction);
-      setsearchBooks(newBooks);
+      setfilterBooks(newBooks);
     }
   };
 
@@ -67,9 +67,9 @@ function BookList() {
               <th>Action</th>
             </tr>
           </thead>
-          {searchBooks.length > 0 ? (
+          {filterBooks.length > 0 ? (
             <tbody>
-              {searchBooks.map((book, index) => (
+              {filterBooks.map((book, index) => (
                 <tr key={index}>
                   <td>{book.id}</td>
                   <td>{book.title}</td>

@@ -38,8 +38,11 @@ const AppProvider = ({ children }) => {
     message:"",
   });
 
+  const [edit, setEdit] = useState(false);
+
+
   return (
-    <AppContext.Provider value={{ setBook, book, setBooks, Books , setToaster, toaster}}>
+    <AppContext.Provider value={{ setBook, book, setBooks, Books , setToaster, toaster,edit,setEdit}}>
       {children}
     </AppContext.Provider>
   );

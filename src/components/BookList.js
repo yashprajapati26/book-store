@@ -22,7 +22,7 @@ function BookList() {
   const deleteBook = (bookId) => {
     setToaster({ ...toaster, open: true, message: "Book Deleted Sucessfully" });
     setfilterBooks(filterBooks.filter((book) => book.id !== bookId));
-    setBooks(filterBooks.filter((book) => book.id !== bookId))
+    setBooks(filterBooks.filter((book) => book.id !== bookId));
   };
 
   const editBook = (bookId) => {
